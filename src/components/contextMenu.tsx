@@ -25,7 +25,7 @@ export default function ContextMenu(props) {
             </div>
           </Match>
           <Match when={props.menuType === "box"}>
-            <div class="contextmenu-item" onclick={() => console.log("Delete")}>
+            <div class="contextmenu-item" onclick={() => props.deleteBox()}>
               Delete
             </div>
             <div
