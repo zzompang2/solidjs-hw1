@@ -7,10 +7,24 @@ export default function App() {
   const [menuType, setMenuType] = createSignal("close");
   const [menuPos, setMenuPos] = createSignal([0, 0]);
   const [boxList, setBoxList] = createSignal([
-    { id: 1, color: "#0000ff", posx: 100, posy: 0 },
-    { id: 2, color: "#00ff00", posx: 200, posy: 200 },
+    { id: 1, color: "#0000ff", pos: [100, 0] },
+    { id: 2, color: "#00ff00", pos: [200, 200] },
   ]);
   let selectedBoxId = 0;
+  let boxId = 2;
+
+  const addNewBox = () => {
+    setBoxList([
+      ...boxList(),
+      {
+        id: ++boxId,
+        color: `rgb(${Math.ceil(Math.random() * 255)}, ${Math.ceil(
+          Math.random() * 255
+        )}, ${Math.ceil(Math.random() * 255)})`,
+        pos: menuPos(),
+      },
+    ]);
+  };
 
   return (
     <main
@@ -35,14 +49,18 @@ export default function App() {
               id={box.id.toString()}
               style={{
                 "background-color": box.color,
-                left: `${box.posx}px`,
-                top: `${box.posy}px`,
+                left: `${box.pos[0]}px`,
+                top: `${box.pos[1]}px`,
               }}
             ></div>
           )}
         </For>
       </div>
-      <ContextMenu menuType={menuType()} menuPos={menuPos()} />
+      <ContextMenu
+        menuType={menuType()}
+        menuPos={menuPos()}
+        addNewBox={addNewBox}
+      />
     </main>
   );
 }

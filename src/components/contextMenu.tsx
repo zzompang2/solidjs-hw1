@@ -14,7 +14,13 @@ export default function ContextMenu(props) {
       >
         <Switch>
           <Match when={props.menuType === "playground"}>
-            <div class="contextmenu-item" onclick={() => console.log("Add")}>
+            <div
+              class="contextmenu-item"
+              onclick={() => {
+                console.log("Add");
+                props.addNewBox();
+              }}
+            >
               Add
             </div>
           </Match>
