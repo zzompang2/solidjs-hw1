@@ -12,7 +12,8 @@ main {
 }
 
 body {
-  font-family: Gordita, Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: Gordita, Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+    "Helvetica Neue", sans-serif;
 }
 
 main {
@@ -26,6 +27,7 @@ main {
 }
 
 .box {
+  position: absolute;
   width: 80px;
   height: 40px;
   background-color: #0f0;
