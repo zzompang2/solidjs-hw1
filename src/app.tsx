@@ -1,5 +1,5 @@
 // @refresh reload
-import { createSignal } from "solid-js";
+import { For, createSignal } from "solid-js";
 import "./app.css";
 import ContextMenu from "./components/contextMenu";
 
@@ -28,8 +28,8 @@ export default function App() {
           setMenuPos([e.clientX, e.clientY]);
         }}
       >
-        {boxList().map((box) => {
-          return (
+        <For each={boxList()}>
+          {(box, i) => (
             <div
               class="box"
               id={box.id.toString()}
@@ -39,8 +39,8 @@ export default function App() {
                 top: `${box.posy}px`,
               }}
             ></div>
-          );
-        })}
+          )}
+        </For>
       </div>
       <ContextMenu menuType={menuType()} menuPos={menuPos()} />
     </main>
