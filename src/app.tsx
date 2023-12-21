@@ -11,14 +11,17 @@ export default function App() {
   let selectedBoxId = 0;
   let boxId = 1;
 
+  const createRandomColor = () =>
+    `rgb(${Math.ceil(Math.random() * 255)}, ${Math.ceil(
+      Math.random() * 255
+    )}, ${Math.ceil(Math.random() * 255)})`;
+
   const addNewBox = () => {
     setBoxList([
       ...boxList(),
       {
         id: ++boxId,
-        color: `rgb(${Math.ceil(Math.random() * 255)}, ${Math.ceil(
-          Math.random() * 255
-        )}, ${Math.ceil(Math.random() * 255)})`,
+        color: createRandomColor(),
         pos: menuPos(),
       },
     ]);
@@ -26,6 +29,14 @@ export default function App() {
 
   const deleteBox = () => {
     setBoxList(boxList().filter((box) => box.id !== selectedBoxId));
+  };
+
+  const changeBoxColor = () => {
+    setBoxList(
+      boxList().map((box) =>
+        box.id === selectedBoxId ? { ...box, color: createRandomColor() } : box
+      )
+    );
   };
 
   return (
@@ -53,6 +64,7 @@ export default function App() {
         menuPos={menuPos()}
         addNewBox={addNewBox}
         deleteBox={deleteBox}
+        changeBoxColor={changeBoxColor}
       />
     </main>
   );

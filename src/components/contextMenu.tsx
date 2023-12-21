@@ -30,7 +30,7 @@ export default function ContextMenu(props) {
             </div>
             <div
               class="contextmenu-item"
-              onclick={() => console.log("Change Color")}
+              onclick={() => props.changeBoxColor()}
             >
               Change Color
             </div>
