@@ -7,7 +7,7 @@ import Box from "./components/box";
 export default function App() {
   const [menuType, setMenuType] = createSignal("close");
   const [menuPos, setMenuPos] = createSignal([0, 0]);
-  const [boxList, setBoxList] = createSignal([]);
+  const [boxList, setBoxList] = createSignal(Array(0));
   let selectedBoxId = 0;
   let boxId = 1;
 
@@ -55,6 +55,11 @@ export default function App() {
           setMenuPos([e.clientX, e.clientY]);
         }}
       >
+        <For each={boxList()}>
+          {(box, i) => <Box id={box.id} color={box.color} pos={box.pos} />}
+        </For>
+      </div>
+      <div class="playground">
         <For each={boxList()}>
           {(box, i) => <Box id={box.id} color={box.color} pos={box.pos} />}
         </For>

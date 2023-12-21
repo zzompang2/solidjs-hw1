@@ -1,6 +1,12 @@
 // @refresh reload
 
-export default function Box(props) {
+interface Props {
+  id: number;
+  color: string;
+  pos: number[];
+}
+
+export default function Box(props: Props) {
   return (
     <div
       class="box"

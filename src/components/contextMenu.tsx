@@ -2,7 +2,15 @@
 
 import { Match, Show, Switch } from "solid-js";
 
-export default function ContextMenu(props) {
+interface Props {
+  menuType: string; // "close" | "playground" | "box";
+  menuPos: number[];
+  addNewBox: () => void;
+  deleteBox: () => void;
+  changeBoxColor: () => void;
+}
+
+export default function ContextMenu(props: Props) {
   let contextRef;
 
   return (
