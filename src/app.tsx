@@ -1,33 +1,25 @@
 // @refresh reload
 import { createSignal } from "solid-js";
 import "./app.css";
+import ContextMenu from "./components/contextMenu";
 
 export default function App() {
-  let contextRef;
-
-  const openContextMenu = (e) => {
-    e.preventDefault();   // remove default context menu
-    e.stopPropagation();  // stop clicking items behind
-    console.log("right click");
-    console.log(e.target.className);
-    contextRef.style.setProperty("left", e.clientX + "px");
-    contextRef.style.setProperty("top", e.clientY + "px");
-    contextRef.style.setProperty("display", "block");
-  }
+  const [menuType, setMenuType] = createSignal("close");
+  const [menuPos, setMenuPos] = createSignal([0, 0]);
 
   return (
-    <main
-    onclick={() => contextRef.style.setProperty("display", "none")}>
+    <main onclick={() => setMenuType("close")}>
       <div
-      class="playground"
-      onContextMenu={openContextMenu}>
-        <div class="contextmenu" ref={contextRef}>
-          <div class="contextmenu-item">Add</div>
-          <div class="contextmenu-item">Delete</div>
-          <div class="contextmenu-item">Change Color</div>
-        </div>
-        <div class="box" onContextMenu={openContextMenu}></div>
+        class="playground"
+        onContextMenu={(e) => {
+          e.preventDefault(); // remove default context menu
+          setMenuType(e.target.className);
+          setMenuPos([e.clientX, e.clientY]);
+        }}
+      >
+        <div class="box"></div>
       </div>
+      <ContextMenu menuType={menuType()} menuPos={menuPos()} />
     </main>
   );
 }

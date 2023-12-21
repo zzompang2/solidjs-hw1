@@ -32,7 +32,6 @@ main {
 }
 
 .contextmenu {
-  display: none;
   position: absolute;
   width: 120px;
   border-radius: 10px;
