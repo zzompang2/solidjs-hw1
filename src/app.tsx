@@ -59,7 +59,7 @@ export default function App() {
           {(box, i) => <Box id={box.id} color={box.color} pos={box.pos} />}
         </For>
       </div>
-      <div class="playground">
+      <div class="playground-copied">
         <For each={boxList()}>
           {(box, i) => <Box id={box.id} color={box.color} pos={box.pos} />}
         </For>
