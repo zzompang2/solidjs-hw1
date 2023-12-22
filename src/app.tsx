@@ -3,11 +3,12 @@ import { For, createSignal } from "solid-js";
 import "./app.css";
 import ContextMenu from "./components/contextMenu";
 import Box from "./components/box";
+import { createStore } from "solid-js/store";
 
 export default function App() {
   const [menuType, setMenuType] = createSignal("close");
   const [menuPos, setMenuPos] = createSignal([0, 0]);
-  const [boxList, setBoxList] = createSignal(Array(0));
+  const [boxList, setBoxList] = createStore(Array(0));
   let selectedBoxId = 0;
   let boxId = 1;
 
@@ -18,7 +19,7 @@ export default function App() {
 
   const addNewBox = () => {
     setBoxList([
-      ...boxList(),
+      ...boxList,
       {
         id: ++boxId,
         color: createRandomColor(),
@@ -28,15 +29,12 @@ export default function App() {
   };
 
   const deleteBox = () => {
-    setBoxList(boxList().filter((box) => box.id !== selectedBoxId));
+    setBoxList(boxList.filter((box) => box.id !== selectedBoxId));
   };
 
   const changeBoxColor = () => {
-    setBoxList(
-      boxList().map((box) =>
-        box.id === selectedBoxId ? { ...box, color: createRandomColor() } : box
-      )
-    );
+    // Store 사용함으로써 불필요한 렌더링 줄이기
+    setBoxList((box) => box.id === selectedBoxId, "color", createRandomColor());
   };
 
   return (
@@ -55,12 +53,12 @@ export default function App() {
           setMenuPos([e.clientX, e.clientY]);
         }}
       >
-        <For each={boxList()}>
+        <For each={boxList}>
           {(box, i) => <Box id={box.id} color={box.color} pos={box.pos} />}
         </For>
       </div>
       <div class="playground-copied">
-        <For each={boxList()}>
+        <For each={boxList}>
           {(box, i) => <Box id={box.id} color={box.color} pos={box.pos} />}
         </For>
       </div>
