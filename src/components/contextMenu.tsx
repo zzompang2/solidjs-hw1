@@ -28,7 +28,7 @@ export default function ContextMenu(props: Props) {
           ref={contextRef}
         >
           <Switch>
-            <Match when={props.menuType === MENU_TYPE.PLAYGROUND}>
+            <Match when={props.menuType === MENU_TYPE.EDITOR}>
               <div
                 class="contextmenu-item"
                 onclick={() => {

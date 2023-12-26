@@ -11,14 +11,14 @@ export type BoxInfo = {
 
 export const enum MENU_TYPE {
   CLOSE,
-  PLAYGROUND,
+  EDITOR,
   BOX,
 }
 
 export function getMenuType(str: string): MENU_TYPE {
   switch (str) {
-    case "playground":
-      return MENU_TYPE.PLAYGROUND;
+    case "editor":
+      return MENU_TYPE.EDITOR;
     case "box":
       return MENU_TYPE.BOX;
     default:
