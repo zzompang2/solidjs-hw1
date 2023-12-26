@@ -2,10 +2,11 @@
 
 import { Match, Show, Switch } from "solid-js";
 import { Portal } from "solid-js/web";
+import { MENU_TYPE, Position } from "~/constant";
 
 interface Props {
-  menuType: string; // "close" | "playground" | "box";
-  menuPos: number[];
+  menuType: MENU_TYPE;
+  menuPos: Position;
   addNewBox: () => void;
   deleteBox: () => void;
   changeBoxColor: () => void;
@@ -15,19 +16,19 @@ export default function ContextMenu(props: Props) {
   let contextRef;
 
   return (
-    <Show when={props.menuType !== "close"}>
+    <Show when={props.menuType !== MENU_TYPE.CLOSE}>
       {/* Portal: contextmenu 컴포넌트를 app 자식으로 이동 */}
-      <Portal mount={document.getElementById("app")}>
+      <Portal mount={document.getElementById("app") as Node}>
         <div
           class="contextmenu"
           style={{
-            left: `${props.menuPos[0]}px`,
-            top: `${props.menuPos[1]}px`,
+            left: `${props.menuPos.x}px`,
+            top: `${props.menuPos.y}px`,
           }}
           ref={contextRef}
         >
           <Switch>
-            <Match when={props.menuType === "playground"}>
+            <Match when={props.menuType === MENU_TYPE.PLAYGROUND}>
               <div
                 class="contextmenu-item"
                 onclick={() => {
@@ -38,7 +39,7 @@ export default function ContextMenu(props: Props) {
                 Add
               </div>
             </Match>
-            <Match when={props.menuType === "box"}>
+            <Match when={props.menuType === MENU_TYPE.BOX}>
               <div class="contextmenu-item" onclick={() => props.deleteBox()}>
                 Delete
               </div>

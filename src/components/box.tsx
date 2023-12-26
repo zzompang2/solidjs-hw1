@@ -1,20 +1,16 @@
 // @refresh reload
 
-interface Props {
-  id: number;
-  color: string;
-  pos: number[];
-}
+import { BoxInfo } from "~/constant";
 
-export default function Box(props: Props) {
+export default function Box(props: BoxInfo) {
   return (
     <div
       class="box"
       id={props.id.toString()}
       style={{
         "background-color": props.color,
-        left: `${props.pos[0]}px`,
-        top: `${props.pos[1]}px`,
+        left: `${props.pos.x}px`,
+        top: `${props.pos.y}px`,
       }}
     ></div>
   );

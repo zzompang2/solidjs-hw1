@@ -1,14 +1,15 @@
 // @refresh reload
 import { For, createSignal } from "solid-js";
+import { createStore } from "solid-js/store";
 import "./app.css";
 import ContextMenu from "./components/contextMenu";
 import Box from "./components/box";
-import { createStore } from "solid-js/store";
+import { BoxInfo, MENU_TYPE, getMenuType } from "./constant";
 
 export default function App() {
-  const [menuType, setMenuType] = createSignal("close");
-  const [menuPos, setMenuPos] = createSignal([0, 0]);
-  const [boxList, setBoxList] = createStore(Array(0));
+  const [menuType, setMenuType] = createSignal(MENU_TYPE.CLOSE);
+  const [menuPos, setMenuPos] = createSignal({ x: 0, y: 0 });
+  const [boxList, setBoxList] = createStore(Array<BoxInfo>());
   let selectedBoxId = 0;
   let boxId = 1;
 
@@ -41,7 +42,7 @@ export default function App() {
     <main
       onclick={() => {
         selectedBoxId = 0;
-        setMenuType("close");
+        setMenuType(MENU_TYPE.CLOSE);
       }}
     >
       <div
@@ -49,8 +50,8 @@ export default function App() {
         onContextMenu={(e) => {
           e.preventDefault(); // remove default context menu
           selectedBoxId = Number(e.target.id);
-          setMenuType(e.target.className);
-          setMenuPos([e.clientX, e.clientY]);
+          setMenuType(getMenuType(e.target.className));
+          setMenuPos({ x: e.clientX, y: e.clientY });
         }}
       >
         <For each={boxList}>
